@@ -56,7 +56,7 @@ For the entire community:
 
 -  **compounds_exchanged.tsv**: file reporting all compounds exchanged, each reported with the relative number of exchanges and the average probability of exchange (smetana_avg) (file sorted by the number of exchanges in a descending way).
 -  **donors_for_compound.tsv**: file reporting all donors for each compound, each reported with the number of receivers and the average probability of donation.
--  **receivers_for_compound.tsv**: file reporting all receivers for each compound, each reported with the number of donors and the average probability of reciving it.
+-  **receivers_for_compound.tsv**: file reporting all receivers for each compound, each reported with the number of donors and the average probability of receiving it.
 
 For each compound asked by the user, the script creates a new folder named after the biggID of the compound containing:
 
