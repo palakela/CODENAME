@@ -17,20 +17,20 @@
 
 
 Contents: 
-1) INTRODUCTION
-2) REQUIREMENTS
-3) INPUT FILES
-4) OUTPUT FILES
-5) TIPS
+1) [INTRODUCTION]("1) INTRODUCTION")
+2) [REQUIREMENTS]("2) REQUIREMENTS")
+3) [INPUT FILES]("3) INPUT FILES")
+4) [OUTPUT FILES]("4) OUTPUT FILES")
+5) [TIPS]("5) TIPS")
 
 ______________________________________________________________________________________
-1) INTRODUCTION
+## 1) INTRODUCTION
 
 CODENAME (CompOunD Exchanges iN A MicrobiomE) is designed for giving graphical visualizations of metabolite exchanges within complex communities. Flux Balance analysis (FBA) results are not easy to interpret, and certainly not intuitive. CODENAME aims to provide a simple and useful visualization for managing high-throughput data from metagenomic and FBA analyses.
 CODENAME directly work on SMETANA output files.
 
 ______________________________________________________________________________________
-2) REQUIREMENTS
+## 2) REQUIREMENTS
 
 To run the script it is necessary to have Phyton v.3.x installed on your laptop. Moreover, you need the following libraries:
 
@@ -41,7 +41,7 @@ To run the script it is necessary to have Phyton v.3.x installed on your laptop.
 -  `os`
 
 _______________________________________________________________________________________
-3) INPUT FILES
+## 3) INPUT FILES
 
 CODENAME needs four different input files in order to work: 
 
@@ -54,7 +54,7 @@ The remaining three files must be provided by the user:
 - a tabular file (txt format) reporting the MAGs taxonomy generated using `GTDB-Tk v1.3.0` and then converted to the NCBI taxonomy using `gtdb_to_ncbi_majority_vote.py`.
 
 ________________________________________________________________________________________
-4) OUTPUT FILES
+## 4) OUTPUT FILES
 
 For the entire community:
 
@@ -69,11 +69,11 @@ For each compound asked by the user, the script creates a new folder named after
 -  **compoundName_exchanges.html**: file with the interactive network relative to all exchanges of that compound in the community, where the colour of the nodes depends on the taxonomy, the size of the nodes is proportional to MAGs abundances and the thickness of the edges is proportional to smetana value.
 
 _________________________________________________________________________________________
-5) TIPS
+## 5) TIPS
 
 In order to explore completely the community, we suggest the user to group the species given in the supplementary output file by their taxonomy. This may provide a more general view of the community. To do so, you can run the following code where `biggID` and `compoundName` are general references and must be substituted:
 
-```
+```python
 result = pd.read_csv('.\outputs\biggID\compoundName_species_behaviour.tsv', delimiter = "\t", index_col='Species')
 result.groupby(['taxonomy', 'behaviour']).mean()
 ```
