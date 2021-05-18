@@ -34,11 +34,11 @@ ________________________________________________________________________________
 
 To run the script it is necessary to have Phyton v.3.x installed on your laptop. Moreover, you need the following libraries:
 
--  Numpy v1.15.1
--  Pandas v0.23.4
--  NetworkX v2.1
--  PyVis v0.1.9
--  os
+-  `Numpy v1.15.1`
+-  `Pandas v0.23.4`
+-  `NetworkX v2.1`
+-  `PyVis v0.1.9`
+-  `os`
 
 _______________________________________________________________________________________
 3) INPUT FILES
