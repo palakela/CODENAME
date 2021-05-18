@@ -17,11 +17,11 @@
 
 
 Contents: 
-1) [INTRODUCTION]("1) INTRODUCTION")
-2) [REQUIREMENTS]("2) REQUIREMENTS")
-3) [INPUT FILES]("3) INPUT FILES")
-4) [OUTPUT FILES]("4) OUTPUT FILES")
-5) [TIPS]("5) TIPS")
+1) [INTRODUCTION](1\) INTRODUCTION)
+2) [REQUIREMENTS]("2\) REQUIREMENTS")
+3) [INPUT FILES]("3\) INPUT FILES")
+4) [OUTPUT FILES]("4\) OUTPUT FILES")
+5) [TIPS]("5\) TIPS")
 
 ______________________________________________________________________________________
 ## 1) INTRODUCTION
