@@ -32,7 +32,7 @@ CODENAME directly work on SMETANA output files.
 ______________________________________________________________________________________
 ## 2) REQUIREMENTS
 
-To run the script it is necessary to have Phyton v.3.x installed on your laptop. Moreover, you need the following libraries:
+To run the script it is necessary to have Python v.3.x installed on your laptop. Moreover, you need the following libraries:
 
 -  `Numpy v1.15.1`
 -  `Pandas v0.23.4`
