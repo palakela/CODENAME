@@ -4,7 +4,7 @@
   Michela Palamin, Elisabetta Offer, and Alice Frisinghelli
 </p>  
 <p align='center'> 
-  Institute of Molecular Biology
+  Master's Degree in Molecular Biology
 </p>
 <p align='center'>
   University of Padua
@@ -16,7 +16,7 @@
 
 
 
-Contents: 
+Table of contents: 
 1) INTRODUCTION
 2) REQUIREMENTS
 3) INPUT FILES
