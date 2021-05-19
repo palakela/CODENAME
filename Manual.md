@@ -40,5 +40,5 @@ Finally, the script creates two compound specific files:
 
 These two files, as well as the network, can be found inside a specific directory named after the compound biggID: '.../CODENAME/outputs/compoundID'
 
-As you finish reading all the files, you can either ask for another compound by writing "Y", or stop the program writing "N".
+As you finish reading all the files, you can either ask for another compound by typing "Y", or stop the program typing "N".
 
