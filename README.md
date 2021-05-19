@@ -1,4 +1,6 @@
-<h1 align='center'> CODENAME </h1>
+<p align="center">
+  <img src="Logo.png" width="35%">
+</p>
 
 <p align='center'>
   Michela Palamin, Elisabetta Offer, and Alice Frisinghelli
