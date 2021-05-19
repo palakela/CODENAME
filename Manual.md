@@ -38,6 +38,7 @@ Finally, the script creates two compound specific files:
 
 -  compundName_species_behavior.tsv
 
-As you finish reading all the files, you can ask for another compound by writing "Y".
-Instead, to stop the program write "N".
+These two files, as well as the network, can be found inside a specific directory named after the compound biggID: '.../CODENAME/outputs/compoundID'
+
+As you finish reading all the files, you can either ask for another compound by writing "Y", or stop the program writing "N".
 
