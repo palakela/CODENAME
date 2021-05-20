@@ -4,7 +4,7 @@ To launch the program, open the terminal, move to the folder you have downloaded
 
 The script automatically creates the "output" folder inside the same directory. If it already exists, the script raises an error but it continues to work. Therefore, we may suggest to rename or remove previous files before continuing. 
 
-At this point, you are required to give as input the names of the files (including the format) you would like to work on. In case they are not in the same folder, you need to provide the entire file paths. 
+At this point, you are required to give as input the names of the files (including the format) you would like to work on. In case they are not in the same folder, you need to provide the entire file path. 
 
 If you insert the wrong file names, the code will ask you to re-input the correct names.
 
@@ -12,13 +12,13 @@ Remember to check for NaN values or duplicates, otherwise the program stops, ask
 
 If everything is correct, the code prints out the number of the total exchanges as follow: 
 
-`... In the community there are n exchanges of m different compunds`.
+`... In the community there are n exchanges of m different compounds`.
 
 Meanwhile, it creates three general files describing the entire community:
 
--  compunds_exchanged.tsv
+-  compounds_exchanged.tsv
 
--  donors_for_compund.tsv
+-  donors_for_compound.tsv
 
 -  receivers_for_compound.tsv
 
@@ -28,17 +28,17 @@ In case the compound is not found in the smetana, the script warns you. We may s
 
 Alternatively, if the compound is exchanged in the community, you see on screen the number of total exchanges and a browser page opens showing the final network.
 
-The network is interactive, hence you can move as you like all the present nodes. Using ctrl you can select more than one node. We may remember that the color palette is indicative of the phylum level, the diameters of the nodes are proportional to MAGs abundances, and the thickness of the edges is proportional to smetana value. A small info box appears as soon as you position your mouse either on a node or an edge.
+The network is interactive, hence you can move as you like all the present nodes. Using ctrl you can select more than one node. The color palette is indicative of the phylum level, the diameters of the nodes are proportional to MAGs abundances, and the thickness of the edges is proportional to smetana value. A small info box appears as soon as you position your mouse either on a node or an edge.
  
 You can zoom in and zoom out. 
 
-Finally, the script creates two compound specific files: 
+Finally, the script creates two compound-specific files: 
 
--  compundName_exchanges.tsv
+-  compoundName_exchanges.tsv
 
--  compundName_species_behavior.tsv
+-  compoundName_species_behavior.tsv
 
-These two files, as well as the network, can be found inside a specific directory named after the compound biggID: '.../CODENAME/outputs/compoundID'
+The two files, as well as the network, can be found inside a specific directory named after the biggID compound: '../CODENAME/outputs/compoundID'
 
 As you finish reading all the files, you can either ask for another compound by typing "Y", or stop the program typing "N".
 
