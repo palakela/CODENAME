@@ -76,7 +76,7 @@ ________________________________________________________________________________
 In order to explore completely the community, we suggest the user to group the species given in the supplementary output file by their taxonomy. This may provide a more general view of the community. To do so, you can run the following code where `biggID` and `compoundName` are general references and must be substituted:
 
 ```python
-result = pd.read_csv('.\outputs\biggID\compoundName_species_behaviour.tsv', delimiter = "\t", index_col='Species')
+result = pd.read_csv('./outputs/biggID/compoundName_species_behaviour.tsv', delimiter = "\t", index_col='Species')
 result.groupby(['taxonomy', 'behaviour']).mean()
 ```
 
