@@ -135,10 +135,10 @@ while go_on != 'N':
         print(f'\nYou are searching for all {compound} exchanges in the community...')
 
         # if the compound name is provided as extended name, convert it into biggID
-        new_compound = "%s%s" % (compound[0].upper(), compound[1:].lower())
-        if new_compound in id_conversion_table.index:
-            compound_extended = new_compound
-            compound = id_conversion_table.loc[new_compound]['biggID']
+        
+        if compound in id_conversion_table.index:
+            compound_extended = compound
+            compound = id_conversion_table.loc[compound]['biggID']
 
       # add prefix and suffix to compound name to search for it in smetana output table
         compound_ID = 'M_'+compound+'_e'
