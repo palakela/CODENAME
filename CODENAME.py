@@ -21,10 +21,28 @@ class DuplicatedValues(Exception):
 class NaNValues(Exception):
     pass
 
+# allow to choose between bigg_compounds_conversion_table_CORRECT.txt (for CarveMe models) 
+# or gapseq_compounds_conversion_table.txt (for gapseq models)
+choice = input("\nPlease insert the software name used to create your models (CarveMe or gapseq):\n")
+while True:
+    if choice == 'CarveMe':
+        path3 = "bigg_compounds_conversion_table_CORRECT.txt" # already provided with the script
+        link3 = "http://bigg.ucsd.edu/universal/metabolites"
+        break
+    elif choice == 'gapseq':
+        path3 = "gapseq_compounds_conversion_table.txt" # already provided with the script
+        link3 = "https://modelseed.org/biochem/compounds"
+        break
+    else:
+        choice = input("\nInput not valid, please insert either CarveMe or gapseq:\n")
+
+# import bigg compounds conversion file as Pandas DataFrame (already checked for NA and duplicates)
+id_conversion_table = pd.read_csv(path3, delimiter = "\t", index_col='extended name')
+
+
 # RETRIVE file path names from the user as input 
 path1 = input("\nPlease enter smetana output file name (tsv format):\n")
 path2 = input("\nPlease enter MAGs coverage file name (txt format):\n")
-path3 = "bigg_compounds_conversion_table_CORRECT.txt" # already provided with the script
 path4 = input("\nPlease enter MAGs taxonomy file name (txt format):\n")
 
 # import smetana output as Pandas DataFrame
@@ -44,7 +62,10 @@ if na_values != 0:
 duplicated = smetana.duplicated().sum()
 if duplicated != 0:
     raise DuplicatedValues("\nThe smetana file has {} duplicated rows. CORRECT IT !!".format(duplicated))
-    
+
+# remove eventually additional info in compound column
+smetana['compound'] = smetana['compound'].agg(lambda x: x.rsplit('_e')[0]+'_e')
+
 # find which compounds are exchanged in the community and how many times
 exchanged_compounds = pd.DataFrame(smetana['compound'].value_counts())
 exchanged_compounds.columns = ['number of exchanges']
@@ -98,11 +119,12 @@ duplicated = MAGs_coverage.duplicated().sum()
 if duplicated != 0:
     raise DuplicatedValues("\nThe MAGs coverage file has {} duplicated rows. CORRECT IT !!".format(duplicated))
 
-# select all df rows, but only columns ending with "_paired.sorted: % binned populations"
-node_diameters = pd.DataFrame(MAGs_coverage.loc[:, MAGs_coverage.columns.str.endswith("_paired.sorted: % binned populations")]*100)
+# remove extension if present
+if '.' in str(MAGs_coverage.index[0]):
+    MAGs_coverage.index = MAGs_coverage.index.str.rsplit('.', expand=True).droplevel(1)  
 
-# import bigg compounds conversion file as Pandas DataFrame (already checked for NA and duplicates)
-id_conversion_table = pd.read_csv(path3, delimiter = "\t", index_col='extended name')
+# select all df rows, but only columns ending with ".sorted: % binned populations"
+node_diameters = pd.DataFrame(MAGs_coverage.loc[:, MAGs_coverage.columns.str.endswith(".sorted: % binned populations")]*100)
 
 # import taxonomy file as Pandas DataFrame
 while True:
@@ -122,6 +144,10 @@ duplicated = taxonomy.index.duplicated().sum()
 if duplicated != 0:
     raise DuplicatedValues("\nThe taxonomy file has {} duplicated rows. CORRECT IT !!".format(duplicated))
 
+# remove extension if present
+if '.' in str(taxonomy.index[0]):
+    taxonomy.index = taxonomy.index.str.rsplit('.', expand=True).droplevel(1)
+
 
 to_replace = {":":"-", "*":"", "?":"", "<":"", ">":"", "|":"", "/":"", "\\":""}
 go_on = 'Y'
@@ -135,10 +161,10 @@ while go_on != 'N':
         print(f'\nYou are searching for all {compound} exchanges in the community...')
 
         # if the compound name is provided as extended name, convert it into biggID
-        new_compound = "%s%s" % (compound[0].upper(), compound[1:].lower())
-        if new_compound in id_conversion_table.index:
-            compound_extended = new_compound
-            compound = id_conversion_table.loc[new_compound]['biggID']
+        # LINE REMOVED becouse doesn't work: new_compound = "%s%s" % (compound[0].upper(), compound[1:].lower())
+        if compound in id_conversion_table.index:
+            compound_extended = compound
+            compound = id_conversion_table.loc[compound]['biggID']
 
       # add prefix and suffix to compound name to search for it in smetana output table
         compound_ID = 'M_'+compound+'_e'
@@ -170,7 +196,7 @@ while go_on != 'N':
 
         # if the compound is not exchanged, print it and ask for a new compound (start another loop)
         else:
-            print(f'\n...There are not {compound} exchanges in the community, check the name inside Bigg database (http://bigg.ucsd.edu/universal/metabolites) or try another compound.\n')
+            print(f'\n...There are not {compound} exchanges in the community, check the name inside the database ('+link3+') or try another compound.\n')
 
     # create a list of all species involved in the exchange (set is a datastructure which keep only one occurrency for each duplicate)
     species = set(subset['receiver'].append(subset['donor']))

@@ -28,13 +28,13 @@ Table of contents:
 ______________________________________________________________________________________
 ## 1) INTRODUCTION
 
-CODENAME (CompOunD Exchanges iN A MicrobiomE) is designed for giving graphical visualizations of metabolite exchanges within complex communities. Flux Balance analysis (FBA) results are not easy to interpret, and certainly not intuitive. CODENAME aims to provide a simple and useful visualization for managing high-throughput data from metagenomic and FBA analyses.
+CODENAME (CompOunD Exchanges iN A MicrobiomE) is designed for giving graphical visualizations of metabolite exchanges within complex communities. Flux Balance Analysis (FBA) results are not easy to interpret, and certainly not intuitive. CODENAME aims to provide a simple and useful visualization for managing high-throughput data from metagenomic and FBA analyses.
 CODENAME directly work on SMETANA output files.
 
 ______________________________________________________________________________________
 ## 2) REQUIREMENTS
 
-To run the script it is necessary to have Python v.3.x installed on your laptop. Moreover, you need the following libraries:
+To run the script it is necessary to have `Python v3.x` installed on your laptop. Moreover, you need the following libraries:
 
 -  `Numpy v1.15.1`
 -  `Pandas v0.23.4`
@@ -45,9 +45,12 @@ To run the script it is necessary to have Python v.3.x installed on your laptop.
 _______________________________________________________________________________________
 ## 3) INPUT FILES
 
-CODENAME needs four different input files in order to work: 
+CODENAME needs four different input files to work. 
 
-- **bigg_compunds_conversion_table_CORRECT.txt**: tabular file allowing the conversion from the biggID to the extended name of the compounds. This file is provided directly and can be found within the downloaded folder. 
+A tabular file provided with the script necessary for the conversions, which can either be:
+
+- **bigg_compunds_conversion_table_CORRECT.txt**: a tabular file allowing the conversion from the CarveMe ID to the extended name of the compounds. This file is provided and can be found within the downloaded folder. 
+-**gapseq_compounds_conversion_table.txt**: tabular file allowing the conversion from the gapseq ID to the extended name of the compounds. This file is also provided and can be found within the downloaded folder. 
 
 The remaining three files must be provided by the user:
 
@@ -60,20 +63,20 @@ ________________________________________________________________________________
 
 For the entire community:
 
--  **compounds_exchanged.tsv**: file reporting all compounds exchanged, each reported with the relative number of exchanges and the average probability of exchange (smetana_avg) (file sorted by the number of exchanges in a descending way).
--  **donors_for_compound.tsv**: file reporting all donors for each compound, each reported with the number of receivers and the average probability of donation.
--  **receivers_for_compound.tsv**: file reporting all receivers for each compound, each reported with the number of donors and the average probability of receiving it.
+-  **compounds_exchanged.tsv**: a file reporting all the compounds exchanged, each reported with the relative number of exchanges and the average probability of exchange (smetana_avg) (the file is sorted out in a descending order according to the number of exchanges).
+-  **donors_for_compound.tsv**: a file reporting all the donor species for each compound; each reported with the number of receivers and the average probability of donation.
+-  **receivers_for_compound.tsv**: a file reporting all receivers for each compound, each reported with the number of donors and the average probability of receiving it.
 
-For each compound asked by the user, the script creates a new folder named after the biggID of the compound containing:
+For each compound selected by the user, the script creates a new folder named according to the CarveMe or gapseq ID of the compound. Each folder includes the following files:
 
--  **compoundName_exchanges.tsv**: file reporting a subset of the smetana output only relative to that compound.
--  **compoundName_species_behaviour.tsv**: file reporting the characteristics of all species involved (relative abundance in %, taxonomy, number of receivers with the relative average probability, number of donors with the relative average probability) and the behaviour of the same depending on donor/receiver probability ratio (file sorted by relative abundances in a descenting way).
--  **compoundName_exchanges.html**: file with the interactive network relative to all exchanges of that compound in the community, where the colour of the nodes depends on the taxonomy, the size of the nodes is proportional to MAGs abundances and the thickness of the edges is proportional to smetana value.
+-  **compoundName_exchanges.tsv**: a file reporting a subset of the smetana output only relative to that compound.
+-  **compoundName_species_behaviour.tsv**: a file reporting the characteristics of all species involved (relative abundance in %, taxonomy, number of receivers with the relative average probability, number of donors with the relative average probability) and the behaviour of the same depending on donor/receiver probability ratio (file sorted by relative abundances in a descenting way).
+-  **compoundName_exchanges.html**: a file with the interactive network relative to all exchanges of that compound in the community, where the colour of the nodes depends on the taxonomy, the size of the nodes is proportional to MAGs abundances and the thickness of the edges is proportional to smetana value.
 
 _________________________________________________________________________________________
 ## 5) TIPS
 
-In order to explore completely the community, we suggest the user to group the species given in the supplementary output file by their taxonomy. This may provide a more general view of the community. To do so, you can run the following code where `biggID` and `compoundName` are general references and must be substituted:
+In order to explore completely the community, we suggest the user to group the species given in the supplementary output file by their taxonomy. This may provide a more general overview of the community. To do so, you can run the following code where `biggID` and `compoundName` are general references and must be substituted:
 
 ```python
 result = pd.read_csv('./outputs/biggID/compoundName_species_behaviour.tsv', delimiter = "\t", index_col='Species')
@@ -96,9 +99,9 @@ res = json.loads(data)
 # convert it to a Pandas DataFrame
 df = pd.DataFrame.from_dict(res['results'])
 
-# check for NA and keep only the first occurency
+# check for NA
 df.dropna(inplace=True)
-# check for duplicates (only at index level) and remove them
+# check for duplicates (only at index level) and keep only the first occurency
 df.drop_duplicates(inplace=True)
 
 # rename columns to future managing 
@@ -109,4 +112,32 @@ id_conversion_table = df.set_index('extended name')
 path = os.getcwd()
 id_conversion_table.to_csv(path+'/bigg_compounds_conversion_table_CORRECT.txt', sep = '\t')
 ```
- 
+
+A similar procedure can be followed to upgrade the **gapseq conversion table**, using this code:
+
+```python
+# download of the bigg compounds conversion file from the web (Internet connection is required)
+import requests
+import json
+
+response = requests.get('https://raw.githubusercontent.com/ModelSEED/ModelSEEDDatabase/master/Biochemistry/compounds.json')
+data = response.text
+res = json.loads(data)
+
+# convert it to a Pandas DataFrame
+df = pd.DataFrame.from_dict(res)
+df = df[['name','id']]
+
+# check for NA
+df.dropna(inplace=True)
+# check for duplicates (only at index level) and keep only the first occurency
+df.drop_duplicates(inplace=True)
+
+# rename columns to future managing 
+df.rename(columns={'name':'extended name','id':'biggID'}, inplace=True)
+id_conversion_table = df.set_index('extended name')
+
+# save as id_conversion_table_CORRECT.txt file
+path = os.getcwd()
+id_conversion_table.to_csv(path+'/gapseq_compounds_conversion_table.txt', sep = '\t')
+```
