@@ -79,6 +79,9 @@ ________________________________________________________________________________
 In order to explore completely the community, we suggest the user to group the species given in the supplementary output file by their taxonomy. This may provide a more general overview of the community. To do so, you can run the following code where `biggID` and `compoundName` are general references and must be substituted:
 
 ```python
+import numpy as np
+import pandas as pd
+
 result = pd.read_csv('./outputs/biggID/compoundName_species_behaviour.tsv', delimiter = "\t", index_col='Species')
 result.groupby(['taxonomy', 'behaviour']).mean()
 ```
@@ -88,10 +91,13 @@ Since the compound names in the smetana output are reported as “bigg_IDs” an
 In case you would like to update it, here we report the code which can be used to create the file:
 
 ```python
-# download of the bigg compounds conversion file from the web (Internet connection is required)
 import requests
 import json
+import numpy as np
+import pandas as pd
+import os
 
+# download of the bigg compounds conversion file from the web (Internet connection is required)
 response = requests.get('http://bigg.ucsd.edu/api/v2/universal/metabolites')
 data = response.text
 res = json.loads(data)
@@ -116,15 +122,20 @@ id_conversion_table.to_csv(path+'/bigg_compounds_conversion_table_CORRECT.txt', 
 A similar procedure can be followed to upgrade the **gapseq conversion table**, using this code:
 
 ```python
-# download of the bigg compounds conversion file from the web (Internet connection is required)
 import requests
 import json
+import numpy as np
+import pandas as pd
+import os
 
+# download of the bigg compounds conversion file from the web (Internet connection is required)
 response = requests.get('https://raw.githubusercontent.com/ModelSEED/ModelSEEDDatabase/master/Biochemistry/compounds.json')
 data = response.text
 res = json.loads(data)
 
 # convert it to a Pandas DataFrame
+import pandas as pd
+
 df = pd.DataFrame.from_dict(res)
 df = df[['name','id']]
 
