@@ -74,6 +74,8 @@ exchanged_compounds.columns = ['number of exchanges']
 exchanged_compounds['smetana_avg'] = smetana.groupby(['compound'])['smetana'].mean()
 exchanged_compounds.index.name = 'compound'
 
+exchanged_compounds.sort_index(inplace=True)  #output file sorted in alphabetical order
+
 # create an output file with all retrived information
 try:
     exchanged_compounds.to_csv(path+'/compounds_exchanged.tsv', sep = '\t')
@@ -196,7 +198,7 @@ while go_on != 'N':
 
         # if the compound is not exchanged, print it and ask for a new compound (start another loop)
         else:
-            print(f'\n...There are not {compound} exchanges in the community, check the name inside the database ('+link3+') or try another compound.\n')
+            print(f'\n...There are not {compound} exchanges in the community, check the name inside the database ('+link3+') or try another compound. Remember, compound names are Case Sensitive.\n')
 
     # create a list of all species involved in the exchange (set is a datastructure which keep only one occurrency for each duplicate)
     species = set(subset['receiver'].append(subset['donor']))
