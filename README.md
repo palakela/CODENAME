@@ -95,7 +95,7 @@ result = pd.read_csv('./outputs/biggID/compoundName_species_behaviour.tsv', deli
 result.groupby(['taxonomy', 'behaviour']).mean()
 ```
 
-Since the compound names in the smetana output are reported as “bigg_IDs” and not as extended names, we provide a conversion file created by downloading the conversion file from [bigg site](http://bigg.ucsd.edu/universal/metabolites) and cleaning it for both NaN values and duplicates: **[bigg_compunds_conversion_table_CORRECT.txt](bigg_compunds_conversion_table_CORRECT.txt)**.
+Since the compound names in the smetana output are reported as “bigg_IDs” and not as extended names, we provide a conversion file created by downloading the conversion file from [bigg site](http://bigg.ucsd.edu/universal/metabolites) and cleaning it for both NaN values and duplicates: **[bigg_compounds_conversion_table_CORRECT.txt](bigg_compounds_conversion_table_CORRECT.txt)**.
 
 In case you would like to update it, here we report the code which can be used to create this kind of file (notice that internet connection is required):
 
