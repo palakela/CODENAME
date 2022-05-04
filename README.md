@@ -54,7 +54,7 @@ CODENAME needs four different input files to work.
 
 A tabular file necessary to convert compound names, which can be one of the two already provided with the script:
 
-- **[bigg_compunds_conversion_table_CORRECT.txt](bigg_compunds_conversion_table_CORRECT.txt)**: a tabular file allowing the conversion from the CarveMe ID to the extended name of the compounds. This file is provided and can be found within the downloaded folder. 
+- **[bigg_compounds_conversion_table_CORRECT.txt](bigg_compounds_conversion_table_CORRECT.txt)**: a tabular file allowing the conversion from the CarveMe ID to the extended name of the compounds. This file is provided and can be found within the downloaded folder. 
 - **[gapseq_compounds_conversion_table.txt](gapseq_compounds_conversion_table.txt)**: tabular file allowing the conversion from the gapseq ID to the extended name of the compounds. This file is also provided and can be found within the downloaded folder. 
 
 The remaining three files instead, must be provided by the user. Notice that in [this folder](examples) you can find screenshoots as examples of how data in these files must be organised:
